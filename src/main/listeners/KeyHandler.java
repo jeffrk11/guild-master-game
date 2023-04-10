@@ -15,13 +15,11 @@ public class KeyHandler implements  KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("PRESSED");
         notifySubs(e.getKeyCode(), true);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("RELEASED");
         notifySubs(e.getKeyCode(), false);
     }
     
@@ -31,6 +29,5 @@ public class KeyHandler implements  KeyListener{
 
     public void addSubscriber(Inputable inputable){
         subscribers.add(inputable);
-        
     }
 }

@@ -2,15 +2,20 @@ package main;
 
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import main.entity.Entity;
 import main.listeners.Inputable;
 import main.listeners.KeyHandler;
+import main.listeners.Updatable;
 
 public class Game implements Runnable{
     private static Thread gameThread;
     private static GamePanel panel;
     private static int fps;
     private static KeyHandler keyHandler;
+    private static Set<Updatable>  updatables;
 
     private Game(){}
 
@@ -22,6 +27,7 @@ public class Game implements Runnable{
         panel = gamePanel;
         panel.addKeyListener(keyHandler);
         panel.setFocusable(true);
+        updatables = new HashSet<>();
     }
 
     @Override
@@ -40,6 +46,7 @@ public class Game implements Runnable{
             lastTime = currentTime;
 
             if(delta >= 1){
+                update();
                 panel.repaint();
                 delta--;
                 drawCount++;
@@ -54,12 +61,17 @@ public class Game implements Runnable{
     }
 
     private void update(){
+        //call update of updatables
+        updatables.stream().forEach( e -> e.update());
         
     }
 
     public static void addEntity(Entity entity){
         if(entity instanceof Inputable)
             keyHandler.addSubscriber((Inputable) entity);
+        
+        if(entity instanceof Updatable)
+            updatables.add((Updatable) entity);
 
         panel.sprites.add(entity);
         

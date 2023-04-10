@@ -36,5 +36,6 @@ public class GamePanel extends JPanel{
         // Entity e = new Entity();
         // g.drawImage(e.img, e.x, e.y, null);
         sprites.forEach( e -> g.drawImage(e.getSprite(), e.getX(), e.getY(),null));
+        g.dispose();
     }
 }

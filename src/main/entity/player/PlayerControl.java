@@ -20,9 +20,17 @@ public class PlayerControl {
         controls.put(KeyEvent.VK_A, p ->{
             p.setX( p.getX() - p.getSpeed());
         });
+        //move up
+        controls.put(KeyEvent.VK_W, p ->{
+            p.setY( p.getY() - p.getSpeed());
+        });
+        //move down
+        controls.put(KeyEvent.VK_S, p ->{
+            p.setY( p.getY() + p.getSpeed());
+        });
     }
 
-    public static void action(int key,boolean pressed,Player p){
+    public static void action(int key,Player p){
         if(controls.containsKey(key)){
             controls.get(key).accept(p);
         }
