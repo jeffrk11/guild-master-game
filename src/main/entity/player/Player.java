@@ -11,24 +11,24 @@ public class Player extends Entity implements Inputable,Updatable{
 
     private int speed = 3;
 
-    private Map<Integer,Boolean> keys;
+    private Map<Integer,Boolean> keysPressed;
 
     public Player(String sprite) {
         super(sprite);
         PlayerControl.initConfig();
-        keys = new HashMap<>();
+        keysPressed = new HashMap<>();
     }
 
     @Override
     public void input(int key,boolean pressed) {
-        keys.put(key, pressed);
+        keysPressed.put(key, pressed);
     }
     
     //call every frame
     @Override
     public void update() {
-        //do keys actions
-        keys.forEach( (k,v) -> {
+        //do keysPressed actions
+        keysPressed.forEach( (k,v) -> {
             if(v) PlayerControl.action(k, this);
         });
     }
