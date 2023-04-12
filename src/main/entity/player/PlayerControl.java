@@ -1,9 +1,7 @@
 package main.entity.player;
 
-import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 
 public class PlayerControl {

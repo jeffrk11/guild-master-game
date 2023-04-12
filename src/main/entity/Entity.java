@@ -6,7 +6,7 @@ import main.sprites.Paths;
 import main.utils.SpriteUtils;
 
 public abstract class Entity {
-    private int x,y;
+    protected int x,y;
     private BufferedImage sprite;
 
     public Entity(String sprite){

@@ -28,12 +28,12 @@ public class Main{
         //game starting
         Game.startGame(panel);
 
-        Game.addEntity(new MapTile(Paths.MAPTILES, "grass.png"));
-        Game.addEntity(new Creature("none.png"));
+        // Game.addEntity(new MapTile(Paths.MAPTILES, "grass.png"),"background");
+        Game.addEntity(new Creature("none.png"),"player");
         Entity player = new Player("ball.png");
         player.setX(100);
         player.setY(100);
-        Game.addEntity(player);
+        Game.addEntity(player,"player");
         
         frame.setVisible(true);
     }

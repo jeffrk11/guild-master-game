@@ -3,13 +3,17 @@ package main;
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import javax.naming.NameNotFoundException;
 
 import main.entity.Entity;
 import main.entity.player.PlayerKeybind;
 import main.listeners.Inputable;
 import main.listeners.KeyHandler;
 import main.listeners.Updatable;
+import main.map.MapHandler;
 
 public class Game implements Runnable{
     private static Thread gameThread;
@@ -17,6 +21,7 @@ public class Game implements Runnable{
     private static int fps;
     private static KeyHandler keyHandler;
     private static Set<Updatable>  updatables;
+    private static MapHandler mapHandler;
 
     private Game(){}
 
@@ -28,8 +33,13 @@ public class Game implements Runnable{
         panel = gamePanel;
         panel.addKeyListener(keyHandler);
         panel.setFocusable(true);
+        panel.addNewLayer("background");
+        panel.addNewLayer("player");
         updatables = new HashSet<>();
         PlayerKeybind.initKeys();
+        mapHandler = new MapHandler(20, 20);
+        addEntities(mapHandler.getGridAsList(), "background");
+
     }
 
     @Override
@@ -68,15 +78,36 @@ public class Game implements Runnable{
         
     }
 
-    public static void addEntity(Entity entity){
+    public static MapHandler getMapHandler() {
+        return mapHandler;
+    }
+
+    public static void addEntity(Entity entity, String layer){
         if(entity instanceof Inputable)
             keyHandler.addSubscriber((Inputable) entity);
         
         if(entity instanceof Updatable)
             updatables.add((Updatable) entity);
 
-        panel.sprites.add(entity);
+        try {
+            panel.addSprites(layer, List.of(entity));
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addEntities(List<? extends Entity> entity, String layer){
+        if(entity instanceof Inputable)
+            keyHandler.addSubscriber((Inputable) entity);
         
+        if(entity instanceof Updatable)
+            updatables.add((Updatable) entity);
+
+        try {
+            panel.addSprites(layer, entity);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }
