@@ -2,6 +2,7 @@ package main.entity;
 
 import java.awt.image.BufferedImage;
 
+import main.sprites.Paths;
 import main.utils.SpriteUtils;
 
 public abstract class Entity {
@@ -11,6 +12,11 @@ public abstract class Entity {
     public Entity(String sprite){
         x = y = 0;
         this.sprite = SpriteUtils.getSprite(sprite);
+    }
+
+    public Entity(Paths spritePath,String sprite){
+        x = y = 0;
+        this.sprite = SpriteUtils.getSprite(spritePath,sprite);
     }
 
 

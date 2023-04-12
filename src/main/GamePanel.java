@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 import main.entity.Entity;
 
 public class GamePanel extends JPanel{
-    final int originalTileSize = 16; // 16x16 tile
-    final int scale = 3;
+    final int originalTileSize = 30; // 16x16 tile
+    final int scale = 2;
     
-    final int tileSize = originalTileSize * scale; // 48
+    final int tileSize = originalTileSize * scale; // 60
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
 

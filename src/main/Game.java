@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import main.entity.Entity;
+import main.entity.player.PlayerKeybind;
 import main.listeners.Inputable;
 import main.listeners.KeyHandler;
 import main.listeners.Updatable;
@@ -28,6 +29,7 @@ public class Game implements Runnable{
         panel.addKeyListener(keyHandler);
         panel.setFocusable(true);
         updatables = new HashSet<>();
+        PlayerKeybind.initKeys();
     }
 
     @Override

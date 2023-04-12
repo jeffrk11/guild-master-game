@@ -8,7 +8,9 @@ import javax.swing.JFrame;
 
 import main.entity.Creature;
 import main.entity.Entity;
+import main.entity.MapTile;
 import main.entity.player.Player;
+import main.sprites.Paths;
 
 
 public class Main{
@@ -26,6 +28,7 @@ public class Main{
         //game starting
         Game.startGame(panel);
 
+        Game.addEntity(new MapTile(Paths.MAPTILES, "grass.png"));
         Game.addEntity(new Creature("none.png"));
         Entity player = new Player("ball.png");
         player.setX(100);

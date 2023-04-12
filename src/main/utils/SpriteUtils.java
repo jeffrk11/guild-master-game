@@ -18,4 +18,12 @@ public class SpriteUtils {
             return null;
         }
     }
+    public static BufferedImage getSprite(Paths path,String name){
+        try {
+            return ImageIO.read(new File(path.getPath() + name));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
