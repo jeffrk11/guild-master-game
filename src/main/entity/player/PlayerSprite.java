@@ -22,8 +22,6 @@ public class PlayerSprite {
         this.playerControl = playerControl;
 
         sprites = new HashMap<>();
-        sprites.put("W", new LinkedList<>(List.of(SpriteUtils.getSprite(Paths.PLAYER, "left-idle.png"))));
-        sprites.put("E", new LinkedList<>(List.of(SpriteUtils.getSprite(Paths.PLAYER, "right-idle.png"))));
         sprites.put("S", 
             new LinkedList<>(List.of(
                     // SpriteUtils.getSprite(Paths.PLAYER, "down-idle.png"),
@@ -31,13 +29,21 @@ public class PlayerSprite {
                     SpriteUtils.getSprite(Paths.PLAYER, "down-step-2.png"))));
         sprites.put("N", 
             new LinkedList<>(List.of(
-
                     SpriteUtils.getSprite(Paths.PLAYER, "top-step-1.png"),
                     SpriteUtils.getSprite(Paths.PLAYER, "top-step-2.png"))));
+        sprites.put("W", 
+            new LinkedList<>(List.of(
+                    SpriteUtils.getSprite(Paths.PLAYER, "left-step-1.png"),
+                    // SpriteUtils.getSprite(Paths.PLAYER, "left-idle.png"),
+                    SpriteUtils.getSprite(Paths.PLAYER, "left-step-2.png"))));
+        sprites.put("E", 
+            new LinkedList<>(List.of(
+                    SpriteUtils.getSprite(Paths.PLAYER, "right-step-1.png"),
+                    SpriteUtils.getSprite(Paths.PLAYER, "right-step-2.png"))));
     }
 
     public void updateSprite(){
-        if(spriteTime++ < 14)
+        if(spriteTime++ < 12)
             return;
         LinkedList<BufferedImage> spritesMovement =  (LinkedList<BufferedImage>) this.sprites.getOrDefault(player.getDirection(), this.sprites.get("S"));
 
