@@ -23,7 +23,9 @@ public abstract class Entity {
     public BufferedImage getSprite(){
         return this.sprite;
     }
-
+    public void setSprite(BufferedImage sprite) {
+        this.sprite = sprite;
+    }
 
     public int getX() {
         return x;
