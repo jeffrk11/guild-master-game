@@ -37,7 +37,7 @@ public class Game implements Runnable{
         panel.addNewLayer("player");
         updatables = new HashSet<>();
         PlayerKeybind.initKeys();
-        mapHandler = new MapHandler(20, 20);
+        mapHandler = new MapHandler(30, 30);
         addEntities(mapHandler.getGridAsList(), "background");
 
     }

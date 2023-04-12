@@ -12,13 +12,18 @@ public class MapHandler {
     private MapTile[][] grid;
 
     public MapHandler(int width, int height){
-        grid = new MapTile[2][2];
+        grid = new MapTile[width][height];
 
-        grid[0][0] = new MapTile(Paths.MAPTILES, "grass.png",0,0);
-        grid[0][1] = new MapTile(Paths.MAPTILES, "grass.png",36,0);
-        grid[1][0] = new MapTile(Paths.MAPTILES, "grass.png",0,36);
-        grid[1][1] = new MapTile(Paths.MAPTILES, "grass.png",36,36);
-
+        var maptiles =  WaveFunctionMap.generateMapGrid(width, height);
+        int x = 0,y = 0;
+        for (int i = 0; i < maptiles.length; i++) {
+            for (int j = 0; j < maptiles[i].length; j++) {
+                grid[i][j] = new MapTile(Paths.MAPTILES, maptiles[i][j].getId(), x, y);
+                x += TILE_SIZE;
+            }
+            y += TILE_SIZE;
+            x = 0;
+        }
 
     }
 

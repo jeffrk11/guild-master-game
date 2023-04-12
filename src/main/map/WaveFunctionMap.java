@@ -11,10 +11,6 @@ import java.util.Random;
 public class WaveFunctionMap {
     
     
-    public static void main(String[] args) {
-        
-    }
-    
     public static MapTiles[][] generateMapGrid(int width, int height){
         MapTiles[][] grid = new MapTiles[width][height];
         List<Tile> gridHistory = new ArrayList<>();
