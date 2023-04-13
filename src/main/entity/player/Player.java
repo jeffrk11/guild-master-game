@@ -40,7 +40,7 @@ public class Player extends Entity implements Inputable,Updatable{
         });
         updatePlayerStatus();
         playerSprite.updateSprite();
-        // System.out.println("x: "+getX() +" y: "+getY());
+        System.out.println("player x: "+getX() +" y: "+getY());
     }
 
     //update player status by keypressed

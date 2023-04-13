@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.GamePanel;
 import main.entity.MapTile;
 import main.sprites.Paths;
 
 public class MapHandler {
-    private final int TILE_SIZE = 36;
+    
     private MapTile[][] grid;
 
     public MapHandler(int width, int height){
@@ -19,9 +20,9 @@ public class MapHandler {
         for (int i = 0; i < maptiles.length; i++) {
             for (int j = 0; j < maptiles[i].length; j++) {
                 grid[i][j] = new MapTile(Paths.MAPTILES, maptiles[i][j].getId(), x, y);
-                x += TILE_SIZE;
+                x += GamePanel.TILE_SIZE + GamePanel.SCALE;
             }
-            y += TILE_SIZE;
+            y += GamePanel.TILE_SIZE + GamePanel.SCALE;
             x = 0;
         }
 

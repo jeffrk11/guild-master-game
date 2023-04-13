@@ -73,9 +73,10 @@ public class Game implements Runnable{
     }
 
     private void update(){
-        //call update of updatables
+        //call update of updatables entities
         updatables.stream().forEach( e -> e.update());
-        
+        panel.getCamera().update();
+        System.out.println("camera x: "+panel.getCamera().getScreenX() +" y: "+panel.getCamera().getScreenY());
     }
 
     public static MapHandler getMapHandler() {

@@ -21,9 +21,10 @@ public class Main{
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setBackground(Color.white);
-        GamePanel panel = new GamePanel();
+        GamePanel panel = new GamePanel(new Camera());
         frame.add(panel);
         frame.pack();
+        
 
         //game starting
         Game.startGame(panel);
@@ -33,6 +34,7 @@ public class Main{
         Entity player = new Player("ball.png");
         player.setX(100);
         player.setY(100);
+        panel.getCamera().setAtached(player);
         Game.addEntity(player,"player");
         
         frame.setVisible(true);

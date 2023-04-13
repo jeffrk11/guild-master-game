@@ -15,33 +15,35 @@ import javax.swing.JPanel;
 import main.entity.Entity;
 
 public class GamePanel extends JPanel{
-    final int originalTileSize = 30; // 30x30 tile
-    final int scale = 2;
+    public static final int TILE_SIZE = 36;
+    public static int SCALE = 0;
     
-    final int tileSize = originalTileSize * scale; // 60
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-
-    final int screenWidth = tileSize * maxScreenCol; //768
-    final int screenHeight = tileSize * maxScreenRow; //768
-
+    final int screenWidth = 800; //768
+    final int screenHeight = 600; //768
+    private Camera camera;
 
 
     final private Map<String,List<Entity>> sprites;
 
-    public GamePanel(){
+    public GamePanel(Camera camera){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         sprites = new LinkedHashMap<>();
+        this.camera = camera;
         
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        SCALE = 0;//camera.getZoom();
         sprites.forEach( (k,v) -> {
-            v.forEach( s-> g.drawImage(s.getSprite(), s.getX(), s.getY(),null) );
+            v.forEach( s-> g.drawImage(s.getSprite(),   ( s.getX() - camera.getScreenX()) + screenWidth/2, 
+                                                        ( s.getY() - camera.getScreenY()) + screenHeight/2,
+                                                    s.getSprite().getWidth() + SCALE,
+                                                    s.getSprite().getHeight() + SCALE,
+                                                    null));
         });
         g.dispose();
     }
@@ -59,5 +61,12 @@ public class GamePanel extends JPanel{
             throw new NameNotFoundException("This layer does not exist");
         
         sprites.get(layer).addAll(entities);
+    }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+    }
+    public Camera getCamera() {
+        return camera;
     }
 }
