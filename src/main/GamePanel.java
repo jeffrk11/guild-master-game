@@ -36,7 +36,9 @@ public class GamePanel extends JPanel{
 
     @Override
     protected void paintComponent(Graphics g) {
+        // long lasttime = System.nanoTime();
         super.paintComponent(g);
+
         SCALE = 0;//camera.getZoom();
         sprites.forEach( (k,v) -> {
             v.forEach( s-> g.drawImage(s.getSprite(),   ( s.getX() - camera.getScreenX()) + screenWidth/2, 
@@ -46,6 +48,7 @@ public class GamePanel extends JPanel{
                                                     null));
         });
         g.dispose();
+        // System.out.println(System.nanoTime() - lasttime);
     }
 
     //return if creation of new layer was successful

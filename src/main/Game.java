@@ -37,7 +37,7 @@ public class Game implements Runnable{
         panel.addNewLayer("player");
         updatables = new HashSet<>();
         PlayerKeybind.initKeys();
-        mapHandler = new MapHandler(30, 30);
+        mapHandler = new MapHandler(10, 10);
         addEntities(mapHandler.getGridAsList(), "background");
 
     }
@@ -62,13 +62,13 @@ public class Game implements Runnable{
                 panel.repaint();
                 delta--;
                 drawCount++;
+                
             }
             if(timer >= 1_000_000_000 ){
                 // System.out.println("FPS :" +drawCount);
                 drawCount = 0;
                 timer = 0;
             }
-
         }
     }
 
@@ -76,7 +76,7 @@ public class Game implements Runnable{
         //call update of updatables entities
         updatables.stream().forEach( e -> e.update());
         panel.getCamera().update();
-        System.out.println("camera x: "+panel.getCamera().getScreenX() +" y: "+panel.getCamera().getScreenY());
+        // System.out.println("camera x: "+panel.getCamera().getScreenX() +" y: "+panel.getCamera().getScreenY());
     }
 
     public static MapHandler getMapHandler() {
