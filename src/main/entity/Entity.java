@@ -9,6 +9,7 @@ public abstract class Entity {
     protected int x,y;
     private BufferedImage sprite;
 
+
     public Entity(String sprite){
         x = y = 0;
         this.sprite = SpriteUtils.getSprite(sprite);
@@ -42,6 +43,5 @@ public abstract class Entity {
     public void setY(int y) {
         this.y = y;
     }
-
     
 }

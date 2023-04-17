@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Graphics;
+
 import main.entity.Entity;
 import main.listeners.Updatable;
 
@@ -19,6 +21,23 @@ public class Camera implements Updatable{
         this.screenX = 0;
         this.screenY = 0;
         this.zoom = 0;
+    }
+
+    public void draw(Environment environment, Graphics g){
+        // SCALE = 10;//camera.getZoom();
+        // entities.forEach( (k,v) -> {
+        //     v.forEach( s->{
+        //         s.setX(s.getX() + SCALE + 36); //screenX
+        //         g.drawImage(s.getSprite(),   ( s.getX() - camera.getScreenX()) + screenWidth/2, 
+        //         ( s.getY() - camera.getScreenY()) + screenHeight/2,
+        //     //s.getSprite().getWidth() + SCALE,
+        //     //s.getSprite().getHeight() + SCALE,
+        //         null);
+        //     });
+        // });
+        
+        // g.dispose();
+        // System.out.println(System.nanoTime() - lasttime);
     }
 
     @Override
@@ -52,5 +71,4 @@ public class Camera implements Updatable{
     public void setZoom(int zoom) {
         this.zoom = zoom;
     }
-
 }

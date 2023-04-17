@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.naming.NameNotFoundException;
+import javax.swing.JPanel;
 
 import main.entity.Entity;
 import main.entity.player.PlayerKeybind;
@@ -17,20 +18,28 @@ import main.map.MapHandler;
 
 public class Game implements Runnable{
     private static Thread gameThread;
-    private static GamePanel panel;
+    private GamePanel panel;
     private static int fps;
     private static KeyHandler keyHandler;
     private static Set<Updatable>  updatables;
-    private static MapHandler mapHandler;
+
+    private static Frame frame;
+    private Environment environment;
 
     private Game(){}
 
-    public static void startGame(GamePanel gamePanel){
+    public static void startFrame(){
+        frame = (Frame) frame.getInstance();
+    }
+
+
+
+    public static void startGame(){
         fps = 60;
         gameThread = new Thread(new Game(),"game_loop");
         keyHandler = new KeyHandler();
         gameThread.start();
-        panel = gamePanel;
+        panel = ;
         panel.addKeyListener(keyHandler);
         panel.setFocusable(true);
         panel.addNewLayer("background");
@@ -91,7 +100,7 @@ public class Game implements Runnable{
             updatables.add((Updatable) entity);
 
         try {
-            panel.addSprites(layer, List.of(entity));
+            panel.addEntities(layer, List.of(entity));
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -105,10 +114,16 @@ public class Game implements Runnable{
             updatables.add((Updatable) entity);
 
         try {
-            panel.addSprites(layer, entity);
+            panel.addEntities(layer, entity);
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+    public Environment getEnvironment() {
+        return environment;
+    }
 }
