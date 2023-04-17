@@ -54,6 +54,8 @@ public class Environment{
         
         this.entities.addAll(entities);
         this.layers.get(layer).addAll(entities);
+
+        Game.addUpdatables(entities);
     }
 
     public void setMapHandler(MapHandler mapHandler) {

@@ -88,33 +88,42 @@ public class Game implements Runnable{
         // System.out.println("camera x: "+panel.getCamera().getScreenX() +" y: "+panel.getCamera().getScreenY());
     }
 
-    public static void addEntity(Entity entity, String layer){
-        if(entity instanceof Inputable)
-            keyHandler.addSubscriber((Inputable) entity);
+    // public static void addEntity(Entity entity, String layer){
+    //     if(entity instanceof Inputable)
+    //         keyHandler.addSubscriber((Inputable) entity);
         
-        if(entity instanceof Updatable)
-            updatables.add((Updatable) entity);
+    //     if(entity instanceof Updatable)
+    //         updatables.add((Updatable) entity);
 
-        try {
-            environment.addEntities(layer, List.of(entity));
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    //     try {
+    //         environment.addEntities(layer, List.of(entity));
+    //     } catch (NameNotFoundException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    public static void addEntities(List<? extends Entity> entity, String layer){
-        if(entity instanceof Inputable)
-            keyHandler.addSubscriber((Inputable) entity);
+    public static void addUpdatables(List<? extends Entity> entities){
+        entities.forEach( e -> {
+            if(e instanceof Inputable)
+                keyHandler.addSubscriber((Inputable) e);
+            if(e instanceof Updatable)
+                updatables.add((Updatable) e);
+        });
         
-        if(entity instanceof Updatable)
-            updatables.add((Updatable) entity);
-
-        try {
-            environment.addEntities(layer, entity);
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-        }
     }
+    // public static void addEntities(List<? extends Entity> entity, String layer){
+    //     if(entity instanceof Inputable)
+    //         keyHandler.addSubscriber((Inputable) entity);
+        
+    //     if(entity instanceof Updatable)
+    //         updatables.add((Updatable) entity);
+
+    //     try {
+    //         environment.addEntities(layer, entity);
+    //     } catch (NameNotFoundException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     public static void setEnvironment(Environment environment) {
         Game.environment = environment;
