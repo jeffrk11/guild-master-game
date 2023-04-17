@@ -27,11 +27,17 @@ public class Environment{
 
     public void updateGraphics(Graphics g){
         //update cameras
-        camera.draw(this, g);
+        if(camera!= null)
+            camera.draw(this, g);
+        else    
+            System.out.println("You should use a camera to see XD");
     }
 
     public Camera getCamera() {
         return camera;
+    }
+    public void setCamera(Camera camera) {
+        this.camera = camera;
     }
 
        //return if creation of new layer was successful
@@ -55,5 +61,9 @@ public class Environment{
     }
     public MapHandler getMapHandler() {
         return mapHandler;
+    }
+
+    public Map<String, List<Entity>> getLayers() {
+        return layers;
     }
 }

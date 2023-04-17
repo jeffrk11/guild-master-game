@@ -25,23 +25,23 @@ public class Camera implements Updatable{
 
     public void draw(Environment environment, Graphics g){
         // SCALE = 10;//camera.getZoom();
-        // entities.forEach( (k,v) -> {
-        //     v.forEach( s->{
-        //         s.setX(s.getX() + SCALE + 36); //screenX
-        //         g.drawImage(s.getSprite(),   ( s.getX() - camera.getScreenX()) + screenWidth/2, 
-        //         ( s.getY() - camera.getScreenY()) + screenHeight/2,
-        //     //s.getSprite().getWidth() + SCALE,
-        //     //s.getSprite().getHeight() + SCALE,
-        //         null);
-        //     });
-        // });
+        environment.getLayers().forEach( (k,v) -> {
+            v.forEach( s->{
+                g.drawImage(s.getSprite(),   ( s.getX() - this.screenX) + Game.getWidth()/2, 
+                ( s.getY() - this.screenY) + Game.getHeight()/2,
+            //s.getSprite().getWidth() + SCALE,
+            //s.getSprite().getHeight() + SCALE,
+                null);
+            });
+        });
         
-        // g.dispose();
+        g.dispose();
         // System.out.println(System.nanoTime() - lasttime);
     }
 
     @Override
     public void update() {
+        
         if(this.atached != null){
             this.screenX = this.atached.getX();
             this.screenY = this.atached.getY();

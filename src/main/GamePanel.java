@@ -3,32 +3,31 @@ package main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.NameNotFoundException;
 import javax.swing.JPanel;
 
 import main.entity.Entity;
 
 public class GamePanel extends JPanel{
     private static GamePanel INSTANCE;
-    private Environment environment;
+    private static Environment environment;
+    public static int WIDTH = 800;
+    public static int HEIGHT = 800;
+
     public GamePanel(){
-        // this.setPreferredSize(new Dimension(screenWidth,screenHeight));
+        this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
     }
 
-    public GamePanel getInstance(){
+    public static GamePanel getInstance(){
         return INSTANCE == null ? new GamePanel() : INSTANCE;
     }
 
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
+    public static void setEnvironment(Environment environment) {
+        GamePanel.environment = environment;
     }
 
     @Override

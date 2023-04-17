@@ -18,18 +18,26 @@ import main.map.MapHandler;
 
 public class Game implements Runnable{
     private static Thread gameThread;
-    private GamePanel panel;
+    private static GamePanel panel;
     private static int fps;
     private static KeyHandler keyHandler;
     private static Set<Updatable>  updatables;
 
     private static Frame frame;
-    private Environment environment;
+    private static Environment environment;
 
     private Game(){}
 
-    public static void startFrame(){
-        frame = (Frame) frame.getInstance();
+    private static void startFrame(Environment environment){
+        frame = (Frame) Frame.getInstance();
+        panel = GamePanel.getInstance();
+        frame.add(panel);
+        keyHandler = new KeyHandler();
+        panel.setFocusable(true);
+        panel.addKeyListener(keyHandler);
+        panel.setEnvironment(environment);
+        frame.pack();
+        frame.setVisible(true);
     }
 
 
@@ -37,18 +45,10 @@ public class Game implements Runnable{
     public static void startGame(){
         fps = 60;
         gameThread = new Thread(new Game(),"game_loop");
-        keyHandler = new KeyHandler();
         gameThread.start();
-        panel = ;
-        panel.addKeyListener(keyHandler);
-        panel.setFocusable(true);
-        panel.addNewLayer("background");
-        panel.addNewLayer("player");
         updatables = new HashSet<>();
         PlayerKeybind.initKeys();
-        mapHandler = new MapHandler(10, 10);
-        addEntities(mapHandler.getGridAsList(), "background");
-
+        
     }
 
     @Override
@@ -84,12 +84,8 @@ public class Game implements Runnable{
     private void update(){
         //call update of updatables entities
         updatables.stream().forEach( e -> e.update());
-        panel.getCamera().update();
+        environment.getCamera().update();
         // System.out.println("camera x: "+panel.getCamera().getScreenX() +" y: "+panel.getCamera().getScreenY());
-    }
-
-    public static MapHandler getMapHandler() {
-        return mapHandler;
     }
 
     public static void addEntity(Entity entity, String layer){
@@ -100,7 +96,7 @@ public class Game implements Runnable{
             updatables.add((Updatable) entity);
 
         try {
-            panel.addEntities(layer, List.of(entity));
+            environment.addEntities(layer, List.of(entity));
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -114,16 +110,25 @@ public class Game implements Runnable{
             updatables.add((Updatable) entity);
 
         try {
-            panel.addEntities(layer, entity);
+            environment.addEntities(layer, entity);
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
+    public static void setEnvironment(Environment environment) {
+        Game.environment = environment;
+        startFrame(environment);
     }
-    public Environment getEnvironment() {
+    public static Environment getEnvironment() {
         return environment;
+    }
+
+    public static int getWidth(){
+        return frame.getWidth();
+    }
+
+    public static int getHeight(){
+        return frame.getHeight();
     }
 }
