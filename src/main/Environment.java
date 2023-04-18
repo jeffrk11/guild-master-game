@@ -73,4 +73,8 @@ public class Environment{
     public Map<String, List<Entity>> getLayers() {
         return layers;
     }
+
+    public List<Entity> getEntities() {
+        return entities;
+    }
 }

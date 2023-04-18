@@ -2,6 +2,7 @@ package main;
 
 
 
+import java.awt.Point;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,7 @@ public class Game implements Runnable{
 
     private static Frame frame;
     private static Environment environment;
+    private static boolean debug;
 
     private Game(){}
 
@@ -115,5 +117,21 @@ public class Game implements Runnable{
 
     public static int getHeight(){
         return frame.getHeight();
+    }
+    public static GamePanel getPanel() {
+        return panel;
+    }
+
+    public static void setDebug(boolean debug) {
+        Game.debug = debug;
+    }
+    public static boolean isDebug() {
+        return Game.debug;
+    }
+    public static int getFps() {
+        return fps;
+    }
+    public static Point getMousePosition(){
+        return Game.panel.getMousePosition();
     }
 }

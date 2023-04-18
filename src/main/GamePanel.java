@@ -1,8 +1,10 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +38,36 @@ public class GamePanel extends JPanel{
         super.paintComponent(g);
         if (environment == null)
             throw new RuntimeException("AN ENVIRONMENT IS MANDATORY");
+
         environment.updateGraphics(g);
+        //debug mode
+        if(Game.isDebug())
+            GamePanel.drawDebugInfo(g);
+        g.dispose();
+    }
+
+    private static void drawDebugInfo(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.RED);
+        g2d.setStroke(new BasicStroke(2f));
+        g2d.drawString("FPS: "+Game.getFps(), 10, 20);
+        g2d.drawString("MOUSE: "+Game.getMousePosition(), 10, 35);
+
+        //map
+        for(var maptile : Game.getEnvironment().getMapHandler().getGridAsList()){
+            g2d.drawOval(
+                    ((int)maptile.getX() - Game.getEnvironment().getCamera().getScreenX()) + Game.getWidth() /2 , 
+                    ((int)maptile.getY() - Game.getEnvironment().getCamera().getScreenY()) + Game.getHeight() /2, 
+                    1, 1); 
+        }
+        //entities
+        for(var entity : Game.getEnvironment().getEntities()){
+            g2d.drawOval(
+                    ((int)entity.getX() - Game.getEnvironment().getCamera().getScreenX()) + Game.getWidth() /2 , 
+                    ((int)entity.getY() - Game.getEnvironment().getCamera().getScreenY()) + Game.getHeight() /2, 
+                    2, 2); 
+        }
+
+        
     }
 }

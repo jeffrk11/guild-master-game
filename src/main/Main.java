@@ -22,6 +22,7 @@ public class Main{
         Game.startGame();
         
         MapHandler map = new MapHandler(10, 10);
+        map.deslocateTilesPositions(10);
         Game.getEnvironment().setMapHandler(map);
         // Game.getEnvironment().addEntities("background",map.getGridAsList());
         Entity x = new Creature("none.png");
@@ -30,8 +31,7 @@ public class Main{
         player.setY(100);
         Game.getEnvironment().getCamera().setAtached(player);
         Game.getEnvironment().addEntities("player",List.of(player,x));
-        
-        
+        Game.setDebug(true);
         // frame.setVisible(true);
     }
 }

@@ -45,7 +45,6 @@ public class Camera implements Updatable{
             });
         });
         
-        g.dispose();
         // System.out.println(System.nanoTime() - lasttime);
     }
 
@@ -53,8 +52,8 @@ public class Camera implements Updatable{
     public void update() {
         
         if(this.atached != null){
-            this.screenX = this.atached.getX();
-            this.screenY = this.atached.getY();
+            this.screenX = (int) this.atached.getPosition().getX();
+            this.screenY = (int) this.atached.getPosition().getY();
         }
     }
 
