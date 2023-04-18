@@ -22,16 +22,26 @@ public class Camera implements Updatable{
         this.screenY = 0;
         this.zoom = 0;
     }
-
+    int space = 4;
+    int spaceX = 0;
+    int spaceY = 0;
+    int lastX = 0;
+    int lastY = 0;
     public void draw(Environment environment, Graphics g){
         // SCALE = 10;//camera.getZoom();
+        
         environment.getLayers().forEach( (k,v) -> {
             v.forEach( s->{
-                g.drawImage(s.getSprite(),   ( s.getX() - this.screenX) + Game.getWidth()/2, 
-                ( s.getY() - this.screenY) + Game.getHeight()/2,
-            //s.getSprite().getWidth() + SCALE,
-            //s.getSprite().getHeight() + SCALE,
-                null);
+ 
+                g.drawImage(
+                    s.getSprite(),   
+                    // (( s.getX() - this.screenX) + Game.getWidth() /2) - ( s.getSprite().getWidth() + space), 
+                    // (( s.getY() - this.screenY) + Game.getHeight()/2) - ( s.getSprite().getHeight() + space),
+                    (( (int) s.getPosition().getX() - this.screenX) + Game.getWidth() /2) , 
+                    (( (int) s.getPosition().getY() - this.screenY) + Game.getHeight()/2) ,
+                    //s.getSprite().getWidth() + SCALE,
+                    //s.getSprite().getHeight() + SCALE,
+                    null);
             });
         });
         

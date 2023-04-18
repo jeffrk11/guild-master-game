@@ -13,6 +13,7 @@ import main.entity.Entity;
 import main.entity.player.PlayerKeybind;
 import main.listeners.Inputable;
 import main.listeners.KeyHandler;
+import main.listeners.MouseHandler;
 import main.listeners.Updatable;
 import main.map.MapHandler;
 
@@ -21,6 +22,7 @@ public class Game implements Runnable{
     private static GamePanel panel;
     private static int fps;
     private static KeyHandler keyHandler;
+    private static MouseHandler mouseHandler;
     private static Set<Updatable>  updatables;
 
     private static Frame frame;
@@ -33,14 +35,15 @@ public class Game implements Runnable{
         panel = GamePanel.getInstance();
         frame.add(panel);
         keyHandler = new KeyHandler();
+        mouseHandler = new MouseHandler();
         panel.setFocusable(true);
         panel.addKeyListener(keyHandler);
+        panel.addMouseListener(mouseHandler);
+        panel.addMouseMotionListener(mouseHandler);
         panel.setEnvironment(environment);
         frame.pack();
         frame.setVisible(true);
     }
-
-
 
     public static void startGame(){
         fps = 60;
@@ -88,20 +91,6 @@ public class Game implements Runnable{
         // System.out.println("camera x: "+panel.getCamera().getScreenX() +" y: "+panel.getCamera().getScreenY());
     }
 
-    // public static void addEntity(Entity entity, String layer){
-    //     if(entity instanceof Inputable)
-    //         keyHandler.addSubscriber((Inputable) entity);
-        
-    //     if(entity instanceof Updatable)
-    //         updatables.add((Updatable) entity);
-
-    //     try {
-    //         environment.addEntities(layer, List.of(entity));
-    //     } catch (NameNotFoundException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
     public static void addUpdatables(List<? extends Entity> entities){
         entities.forEach( e -> {
             if(e instanceof Inputable)
@@ -111,19 +100,6 @@ public class Game implements Runnable{
         });
         
     }
-    // public static void addEntities(List<? extends Entity> entity, String layer){
-    //     if(entity instanceof Inputable)
-    //         keyHandler.addSubscriber((Inputable) entity);
-        
-    //     if(entity instanceof Updatable)
-    //         updatables.add((Updatable) entity);
-
-    //     try {
-    //         environment.addEntities(layer, entity);
-    //     } catch (NameNotFoundException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 
     public static void setEnvironment(Environment environment) {
         Game.environment = environment;

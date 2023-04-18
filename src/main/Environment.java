@@ -2,13 +2,16 @@ package main;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.naming.NameNotFoundException;
 
 import main.entity.Entity;
+import main.entity.player.Player;
 import main.map.MapHandler;
 
 public class Environment{
@@ -19,10 +22,10 @@ public class Environment{
     private Camera camera;
     
     public Environment(int width, int height){
-        mapHandler = new MapHandler(width, height);
-        layers = new HashMap<>();
+        layers = new LinkedHashMap<>();
         entities = new ArrayList<>();
-
+        this.addNewLayer("background");
+        this.addNewLayer("map");
     }
 
     public void updateGraphics(Graphics g){
@@ -40,7 +43,7 @@ public class Environment{
         this.camera = camera;
     }
 
-       //return if creation of new layer was successful
+    //return if creation of new layer was successful
     public boolean addNewLayer(String name){
         if(layers.containsKey(name))
             return false;
@@ -60,6 +63,8 @@ public class Environment{
 
     public void setMapHandler(MapHandler mapHandler) {
         this.mapHandler = mapHandler;
+        layers.put("map", (List<Entity>) this.mapHandler.getGridAsList());
+
     }
     public MapHandler getMapHandler() {
         return mapHandler;

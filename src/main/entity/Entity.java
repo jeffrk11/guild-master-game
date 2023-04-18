@@ -1,5 +1,6 @@
 package main.entity;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import main.sprites.Paths;
@@ -29,7 +30,7 @@ public abstract class Entity {
     }
 
     public int getX() {
-        return x;
+        return x ;
     }
 
     public void setX(int x) {
@@ -42,6 +43,10 @@ public abstract class Entity {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Point getPosition(){
+        return new Point(x - (sprite.getWidth() / 2), y - (sprite.getHeight() / 2));
     }
     
 }

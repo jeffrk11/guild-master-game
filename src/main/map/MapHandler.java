@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+
 import main.GamePanel;
+import main.entity.Entity;
 import main.entity.MapTile;
 import main.sprites.Paths;
 
@@ -28,11 +31,24 @@ public class MapHandler {
 
     }
 
+    public void updateTilesPositions(int size){
+        int x = 0,y = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j].setX( x );
+                grid[i][j].setY( y );
+                x += TILE_SIZE + size;
+            }
+            y += TILE_SIZE + size;
+            x = 0;
+        }
+    }
+
     public MapTile[][] getGrid() {
         return grid;
     }
 
-    public List<MapTile> getGridAsList() {
+    public List<? extends Entity> getGridAsList() {
         List<MapTile> gridList = new ArrayList<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
