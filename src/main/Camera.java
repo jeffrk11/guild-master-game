@@ -1,6 +1,9 @@
 package main;
 
 import java.awt.Graphics;
+import java.awt.Point;
+
+import javax.swing.text.Position;
 
 import main.entity.Entity;
 import main.listeners.Updatable;
@@ -10,6 +13,7 @@ public class Camera implements Updatable{
     private int screenY;
     private int zoom;
     private Entity atached;
+    private Point center;
 
     public Camera(Entity atach){
         this.atached = atach;
@@ -22,11 +26,8 @@ public class Camera implements Updatable{
         this.screenY = 0;
         this.zoom = 0;
     }
-    int space = 4;
-    int spaceX = 0;
-    int spaceY = 0;
-    int lastX = 0;
-    int lastY = 0;
+
+
     public void draw(Environment environment, Graphics g){
         // SCALE = 10;//camera.getZoom();
         
@@ -35,12 +36,12 @@ public class Camera implements Updatable{
  
                 g.drawImage(
                     s.getSprite(),   
-                    // (( s.getX() - this.screenX) + Game.getWidth() /2) - ( s.getSprite().getWidth() + space), 
-                    // (( s.getY() - this.screenY) + Game.getHeight()/2) - ( s.getSprite().getHeight() + space),
-                    (( (int) s.getPosition().getX() - this.screenX) + Game.getWidth() /2) , 
-                    (( (int) s.getPosition().getY() - this.screenY) + Game.getHeight()/2) ,
-                    //s.getSprite().getWidth() + SCALE,
-                    //s.getSprite().getHeight() + SCALE,
+                    //(( s.getX() - this.screenX) + Game.getWidth() /2) - ( s.getSprite().getWidth() ), 
+                    //(( s.getY() - this.screenY) + Game.getHeight()/2) - ( s.getSprite().getHeight()),
+                    ((int)this.getScreenPosition(s.getX(),s.getY()).getX()) , 
+                    ((int)this.getScreenPosition(s.getX(),s.getY()).getY()) ,
+                    s.getWidth(),
+                    s.getHeight(),
                     null);
             });
         });
@@ -51,12 +52,23 @@ public class Camera implements Updatable{
     @Override
     public void update() {
         
-        if(this.atached != null){
-            this.screenX = (int) this.atached.getPosition().getX();
-            this.screenY = (int) this.atached.getPosition().getY();
-        }
+        // if(this.atached != null){
+        //     this.screenX = (int) this.atached.getPosition().x;
+        //     this.screenY = (int) this.atached.getPosition().y;
+        // }
     }
 
+    public Point getScreenPosition(int x,int y){
+        return new Point(
+            (( x - this.screenX) + Game.getWidth() /2), 
+            (( y - this.screenY) + Game.getHeight()/2));
+    }
+
+    public Point getCenter(){
+        return new Point(
+            (Game.getWidth() /2), 
+            (Game.getHeight()/2));
+    }
 
     public int getScreenX() {
         return screenX;

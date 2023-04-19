@@ -14,6 +14,8 @@ import main.sprites.Paths;
 public class MapHandler {
     private final int TILE_SIZE = 36; 
     private MapTile[][] grid;
+    private int minZoom = -10;
+    private int maxzoom = 40;
 
     public MapHandler(int width, int height){
         grid = new MapTile[width][height];
@@ -32,14 +34,16 @@ public class MapHandler {
     }
 
     public void deslocateTilesPositions(int size){
-        int x = 0,y = 0;
+        int x = grid[0][0].getX();
+        int y = grid[0][0].getY();
+
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                grid[i][j].setX( x );
-                grid[i][j].setY( y );
-                x += TILE_SIZE + size;
+                grid[i][j].setX( x + size );
+                grid[i][j].setY( y + size );
+                x += grid[i][j].getWidth() + size*-1;
             }
-            y += TILE_SIZE + size;
+            y += grid[i][0].getHeight() + size*-1;
             x = 0;
         }
     }
@@ -56,5 +60,13 @@ public class MapHandler {
             }
         }
         return gridList;
+    }
+
+    public boolean isZoomable(int currentZoom, int zoom){
+        if(zoom > 0){//zoom out
+            return currentZoom < maxzoom;
+        } else{ // zoom in
+            return currentZoom > minZoom;
+        }
     }
 }

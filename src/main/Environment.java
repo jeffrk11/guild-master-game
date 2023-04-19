@@ -61,9 +61,43 @@ public class Environment{
         Game.addUpdatables(entities);
     }
 
+    //zoom
+    public void zoom(int zoom){
+        if(mapHandler.isZoomable(camera.getZoom(), zoom)){
+                camera.setZoom(camera.getZoom() + zoom);
+                //update x,y of all entities
+                entities.forEach(e -> {
+                    int original_width = e.getWidth();
+                    int original_height = e.getHeight();
+                    
+                    int width = original_width * zoom;
+                    int height = original_height * zoom;
+
+                    int x = (original_width - width) / 2 + e.getX();
+                    int y = (original_height - height) / 2 + e.getY();
+
+                    e.setX(x);
+                    e.setY(y);
+                });
+            
+        }
+        // if(mapHandler.isZoomable(camera.getZoom(), zoom)){
+        //     camera.setZoom(camera.getZoom() + zoom);
+        //     //update x,y of all entities
+        //     entities.forEach(e -> {
+        //         e.setWidth(e.getWidth() + zoom);
+        //         e.setHeight(e.getHeight() + zoom);
+        //         e.setX(e.getX() + zoom);
+        //         e.setY(e.getY() + zoom);
+        //     });
+        //     // mapHandler.deslocateTilesPositions(zoom);
+        // }
+    }
+
     public void setMapHandler(MapHandler mapHandler) {
         this.mapHandler = mapHandler;
         layers.put("map", (List<Entity>) this.mapHandler.getGridAsList());
+        entities.addAll(this.mapHandler.getGridAsList());
 
     }
     public MapHandler getMapHandler() {

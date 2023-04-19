@@ -3,8 +3,12 @@ package main.listeners;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-public class MouseHandler implements MouseListener, MouseMotionListener {
+import main.Game;
+
+public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -40,6 +44,11 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
         
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        Game.getEnvironment().zoom(e.getWheelRotation()*-1);
     }
     
 }

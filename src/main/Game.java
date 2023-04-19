@@ -42,6 +42,7 @@ public class Game implements Runnable{
         panel.addKeyListener(keyHandler);
         panel.addMouseListener(mouseHandler);
         panel.addMouseMotionListener(mouseHandler);
+        panel.addMouseWheelListener(mouseHandler);
         panel.setEnvironment(environment);
         frame.pack();
         frame.setVisible(true);

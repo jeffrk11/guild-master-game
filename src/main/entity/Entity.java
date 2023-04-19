@@ -8,17 +8,22 @@ import main.utils.SpriteUtils;
 
 public abstract class Entity {
     protected int x,y;
+    protected int width, height;
     private BufferedImage sprite;
 
 
     public Entity(String sprite){
         x = y = 0;
         this.sprite = SpriteUtils.getSprite(sprite);
+        this.width = this.sprite.getWidth();
+        this.height = this.sprite.getHeight();
     }
 
     public Entity(Paths spritePath,String sprite){
         x = y = 0;
         this.sprite = SpriteUtils.getSprite(spritePath,sprite);
+        this.width = this.sprite.getWidth();
+        this.height = this.sprite.getHeight();
     }
 
 
@@ -45,8 +50,20 @@ public abstract class Entity {
         this.y = y;
     }
 
+    public int getHeight() {
+        return height;
+    }
+    public int getWidth() {
+        return width;
+    }
+    public void setHeight(int height) {
+        this.height = height;
+    }
+    public void setWidth(int width) {
+        this.width = width;
+    }
     public Point getPosition(){
-        return new Point(x - (sprite.getWidth() / 2), y - (sprite.getHeight() / 2));
+        return new Point(x + (getWidth() / 2), y + (getHeight() / 2));
     }
     
 }
