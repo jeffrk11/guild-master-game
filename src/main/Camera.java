@@ -33,16 +33,14 @@ public class Camera implements Updatable{
         
         environment.getLayers().forEach( (k,v) -> {
             v.forEach( s->{
-                int newX = (int)(s.getX() * this.zoom);
-                int newY = (int)(s.getY() * this.zoom);
                 int newWidth = (int)(s.getWidth() * this.zoom);
                 int newHeight = (int)(s.getHeight() * this.zoom);
-                Point spriteScreenPosition = getScreenPosition(newX, newY);
+                Point spriteScreenPosition = getScreenPosition(s.getX(), s.getY());
                 g.drawImage(
                     s.getSprite(),   
                     spriteScreenPosition.x, 
                     spriteScreenPosition.y,
-                    newWidth +1,
+                    newWidth +1, //+1 to correct little visual bug
                     newHeight+1,
                     null);
             });
@@ -63,8 +61,8 @@ public class Camera implements Updatable{
 
     public Point getScreenPosition(int x,int y){
         return new Point(
-            (( x - this.screenX) + Game.getWidth() /2), 
-            (( y - this.screenY) + Game.getHeight()/2));
+            (( ((int)(x * this.zoom)) - this.screenX) + Game.getWidth() /2) , 
+            (( ((int)(y * this.zoom)) - this.screenY) + Game.getHeight()/2));
     }
 
     public Point getCenter(){

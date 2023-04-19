@@ -5,12 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.List;
-import java.util.Map;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 
-import main.entity.Entity;
 import main.entity.player.Player;
 
 public class GamePanel extends JPanel{
@@ -62,27 +60,30 @@ public class GamePanel extends JPanel{
         g2d.setColor(Color.white);
         //map
         for(var maptile : Game.getEnvironment().getMapHandler().getGridAsList()){
+            Point position = Game.getEnvironment().getCamera().getScreenPosition(maptile.getX(),maptile.getY());
             g2d.drawOval(
-                    ((int)Game.getEnvironment().getCamera().getScreenPosition(maptile.getX(),maptile.getY()).getX()), 
-                    ((int)Game.getEnvironment().getCamera().getScreenPosition(maptile.getX(),maptile.getY()).getY()), 
+                    position.x, 
+                    position.y, 
                     1, 1); 
         }
         g2d.setColor(Color.red);
         //entities
         for(var entity : Game.getEnvironment().getEntities()){
+            Point position = Game.getEnvironment().getCamera().getScreenPosition(entity.getPosition().x,entity.getPosition().y);
             g2d.drawOval(
-                ((int)Game.getEnvironment().getCamera().getScreenPosition(entity.getPosition().x,entity.getPosition().y).getX()), 
-                ((int)Game.getEnvironment().getCamera().getScreenPosition(entity.getPosition().x,entity.getPosition().y).getY()), 
-                    2, 2); 
+                position.x, 
+                position.y, 
+                    2, 2);
         }
  
 
         //draw line to mouse
         
         try{
+            Point position = Game.getEnvironment().getCamera().getScreenPosition(p.getPosition().x,p.getPosition().y);
             g2d.drawLine(
-                    ((int)Game.getEnvironment().getCamera().getScreenPosition(p.getPosition().x,p.getPosition().y).getX()),
-                    ((int)Game.getEnvironment().getCamera().getScreenPosition(p.getPosition().x,p.getPosition().y).getY()),
+                    position.x,
+                    position.y,
                     ((int)Game.getMousePosition().getX()), 
                     ((int)Game.getMousePosition().getY()));
         }catch(NullPointerException e){

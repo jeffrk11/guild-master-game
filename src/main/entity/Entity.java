@@ -63,7 +63,7 @@ public abstract class Entity {
         this.width = width;
     }
     public Point getPosition(){
-        return new Point(x + (getWidth() / 2), y + (sprite.getHeight() / 2));
+        return new Point(x + (getWidth() / 2), y + (getHeight() / 2));
     }
     
 }
