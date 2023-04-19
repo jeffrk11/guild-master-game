@@ -14,8 +14,8 @@ import main.sprites.Paths;
 public class MapHandler {
     private final int TILE_SIZE = 36; 
     private MapTile[][] grid;
-    private int minZoom = -10;
-    private int maxzoom = 40;
+    private float minZoom = 0.8f;
+    private float maxzoom = 2.9f;
 
     public MapHandler(int width, int height){
         grid = new MapTile[width][height];
@@ -62,7 +62,7 @@ public class MapHandler {
         return gridList;
     }
 
-    public boolean isZoomable(int currentZoom, int zoom){
+    public boolean isZoomable(float currentZoom, int zoom){
         if(zoom > 0){//zoom out
             return currentZoom < maxzoom;
         } else{ // zoom in

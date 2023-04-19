@@ -57,6 +57,7 @@ public class GamePanel extends JPanel{
         g2d.drawString("ZOOM: "+Game.getEnvironment().getCamera().getZoom(), 10, 50);
         g2d.drawString("player x: "+p.getX() +" y: "+p.getY() , 10, 80);
         g2d.drawString("player w: "+p.getWidth() +" h: "+p.getHeight() , 10, 100);
+        g2d.drawString("camera x: "+Game.getEnvironment().getCamera().getScreenX() +" y: "+Game.getEnvironment().getCamera().getScreenY() , 10, 120);
 
         g2d.setColor(Color.white);
         //map
@@ -87,6 +88,8 @@ public class GamePanel extends JPanel{
         }catch(NullPointerException e){
             //do nothing
         }
+
+        
         
     }
 }

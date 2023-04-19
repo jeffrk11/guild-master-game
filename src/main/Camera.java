@@ -11,7 +11,7 @@ import main.listeners.Updatable;
 public class Camera implements Updatable{
     private int screenX;
     private int screenY;
-    private int zoom;
+    private float zoom;
     private Entity atached;
     private Point center;
 
@@ -19,12 +19,12 @@ public class Camera implements Updatable{
         this.atached = atach;
         this.screenX = this.atached.getX();
         this.screenY = this.atached.getY();
-        this.zoom = 0;
+        this.zoom = 1;
     }
     public Camera(){
         this.screenX = 0;
         this.screenY = 0;
-        this.zoom = 0;
+        this.zoom = 1;
     }
 
 
@@ -33,15 +33,17 @@ public class Camera implements Updatable{
         
         environment.getLayers().forEach( (k,v) -> {
             v.forEach( s->{
- 
+                int newX = (int)(s.getX() * this.zoom);
+                int newY = (int)(s.getY() * this.zoom);
+                int newWidth = (int)(s.getWidth() * this.zoom);
+                int newHeight = (int)(s.getHeight() * this.zoom);
+                Point spriteScreenPosition = getScreenPosition(newX, newY);
                 g.drawImage(
                     s.getSprite(),   
-                    //(( s.getX() - this.screenX) + Game.getWidth() /2) - ( s.getSprite().getWidth() ), 
-                    //(( s.getY() - this.screenY) + Game.getHeight()/2) - ( s.getSprite().getHeight()),
-                    ((int)this.getScreenPosition(s.getX(),s.getY()).getX()) , 
-                    ((int)this.getScreenPosition(s.getX(),s.getY()).getY()) ,
-                    s.getWidth(),
-                    s.getHeight(),
+                    spriteScreenPosition.x, 
+                    spriteScreenPosition.y,
+                    newWidth +1,
+                    newHeight+1,
                     null);
             });
         });
@@ -51,11 +53,12 @@ public class Camera implements Updatable{
 
     @Override
     public void update() {
-        
-        // if(this.atached != null){
-        //     this.screenX = (int) this.atached.getPosition().x;
-        //     this.screenY = (int) this.atached.getPosition().y;
-        // }
+        if(this.atached != null){
+            int newX = (int)(this.atached.getX() * this.zoom);
+            int newY = (int)(this.atached.getY() * this.zoom);
+            this.screenX = newX;
+            this.screenY = newY;
+        }
     }
 
     public Point getScreenPosition(int x,int y){
@@ -86,10 +89,11 @@ public class Camera implements Updatable{
     public void setAtached(Entity atached) {
         this.atached = atached;
     }
-    public int getZoom() {
+    public float getZoom() {
         return zoom;
     }
-    public void setZoom(int zoom) {
+    
+    public void setZoom(float zoom) {
         this.zoom = zoom;
     }
 }

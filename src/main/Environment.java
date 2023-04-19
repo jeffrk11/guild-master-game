@@ -1,9 +1,8 @@
 package main;
 
 import java.awt.Graphics;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.Map;
 import javax.naming.NameNotFoundException;
 
 import main.entity.Entity;
-import main.entity.player.Player;
 import main.map.MapHandler;
 
 public class Environment{
@@ -63,35 +61,10 @@ public class Environment{
 
     //zoom
     public void zoom(int zoom){
-        if(mapHandler.isZoomable(camera.getZoom(), zoom)){
-                camera.setZoom(camera.getZoom() + zoom);
-                //update x,y of all entities
-                entities.forEach(e -> {
-                    int original_width = e.getWidth();
-                    int original_height = e.getHeight();
-                    
-                    int width = original_width * zoom;
-                    int height = original_height * zoom;
-
-                    int x = (original_width - width) / 2 + e.getX();
-                    int y = (original_height - height) / 2 + e.getY();
-
-                    e.setX(x);
-                    e.setY(y);
-                });
-            
-        }
-        // if(mapHandler.isZoomable(camera.getZoom(), zoom)){
-        //     camera.setZoom(camera.getZoom() + zoom);
-        //     //update x,y of all entities
-        //     entities.forEach(e -> {
-        //         e.setWidth(e.getWidth() + zoom);
-        //         e.setHeight(e.getHeight() + zoom);
-        //         e.setX(e.getX() + zoom);
-        //         e.setY(e.getY() + zoom);
-        //     });
-        //     // mapHandler.deslocateTilesPositions(zoom);
-        // }
+        if(!mapHandler.isZoomable(camera.getZoom(), zoom))
+            return;
+        
+        camera.setZoom(Float.valueOf(String.format("%.2f",camera.getZoom() + (0.1f*zoom)).replace(",", ".")));
     }
 
     public void setMapHandler(MapHandler mapHandler) {
