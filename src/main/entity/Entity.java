@@ -10,6 +10,7 @@ public abstract class Entity {
     protected int x,y;
     protected int width, height;
     private BufferedImage sprite;
+    protected int direction;
 
 
     public Entity(String sprite){
@@ -17,6 +18,7 @@ public abstract class Entity {
         this.sprite = SpriteUtils.getSprite(sprite);
         this.width = this.sprite.getWidth();
         this.height = this.sprite.getHeight();
+        this.direction =  0;
     }
 
     public Entity(Paths spritePath,String sprite){
@@ -24,6 +26,7 @@ public abstract class Entity {
         this.sprite = SpriteUtils.getSprite(spritePath,sprite);
         this.width = this.sprite.getWidth();
         this.height = this.sprite.getHeight();
+        this.direction = 0;
     }
 
 
@@ -64,6 +67,12 @@ public abstract class Entity {
     }
     public Point getPosition(){
         return new Point(x + (getWidth() / 2), y + (getHeight() / 2));
+    }
+    public int getDirection() {
+        return direction;
+    }
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
     
 }
