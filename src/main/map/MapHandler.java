@@ -17,6 +17,10 @@ public class MapHandler {
     private float minZoom = 0.8f;
     private float maxzoom = 2.9f;
 
+    public MapHandler(){
+        grid = new MapTile[0][0];
+    }
+
     public MapHandler(int width, int height){
         grid = new MapTile[width][height];
 

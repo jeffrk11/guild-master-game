@@ -21,7 +21,7 @@ public class Main{
         Game.setEnvironment(env);
         Game.startGame();
         
-        MapHandler map = new MapHandler(10, 10);
+        MapHandler map = new MapHandler();
         Game.getEnvironment().setMapHandler(map);
         // Game.getEnvironment().addEntities("background",map.getGridAsList());
         Entity x = new Creature("none.png");
